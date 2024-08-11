@@ -81,4 +81,5 @@ This project is licensed under the MIT License. See the LICENSE file for details
 
 ### Links 
 https://discord.gg/Ku2haNjFvj
+
 https://pypi.org/project/mnnai/
