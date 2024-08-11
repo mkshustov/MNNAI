@@ -12,7 +12,7 @@ setup(
   description='Module for using AI',
   long_description=readme(),
   long_description_content_type='text/markdown',
-  url='http://127.0.0.1:8080/',
+  url='https://github.com/mkshustov/MNNLibr',
   packages=find_packages(),
   install_requires=['requests>=2.25.1', 'aiohttp'],
   classifiers=[
