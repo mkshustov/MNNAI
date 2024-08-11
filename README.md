@@ -79,5 +79,6 @@ Adjust the prompt, model, and other parameters as needed for your specific use c
 ### License
 This project is licensed under the MIT License. See the LICENSE file for details.
 
-### Discord 
+### Links 
 https://discord.gg/Ku2haNjFvj
+https://pypi.org/project/mnnai/
