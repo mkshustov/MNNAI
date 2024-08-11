@@ -1,4 +1,4 @@
-# MNNLibr
+# MNNAI
 
 This repository contains an example of how to use the MNNLib library to interact with the MNN API for image generation and text chat functionalities.
 
@@ -8,7 +8,7 @@ This repository contains an example of how to use the MNNLib library to interact
 - MNNLib library installed. You can install it using pip:
 
 ```bash
-pip install mnnlibr
+pip install mnnai
 ```
 
 ## Usage
@@ -16,7 +16,7 @@ Image Generation
 The following code demonstrates how to generate an image based on a prompt using the MNN API.
 
 ```python
-from mnnlibr import MNN
+from mnnai import MNN
 
 client = MNN(
     key='MNN API KEY',
