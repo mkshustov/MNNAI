@@ -16,7 +16,7 @@ Image Generation
 The following code demonstrates how to generate an image based on a prompt using the MNN API.
 
 ```python
-from MNNLib import MNN
+from mnnlibr import MNN
 
 client = MNN(
     key='MNN API KEY',
