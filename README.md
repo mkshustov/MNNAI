@@ -78,3 +78,6 @@ Adjust the prompt, model, and other parameters as needed for your specific use c
 
 ### License
 This project is licensed under the MIT License. See the LICENSE file for details.
+
+### Discord 
+https://discord.gg/Ku2haNjFvj
