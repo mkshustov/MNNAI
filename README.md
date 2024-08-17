@@ -12,7 +12,8 @@ pip install mnnai
 ```
 
 ## Usage
-Image Generation
+**Image generation**
+
 The following code demonstrates how to generate an image based on a prompt using the MNN API.
 
 ```python
