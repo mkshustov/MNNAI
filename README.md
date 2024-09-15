@@ -8,7 +8,7 @@ This repository contains an example of how to use the MNNLib library to interact
 - MNNLib library installed. You can install it using pip:
 
 ```bash
-pip install mnnai
+pip install mnnlibr
 ```
 
 ## Usage
