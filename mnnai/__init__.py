@@ -1,4 +1,5 @@
-url = 'http://127.0.0.1:8080'
+url = 'https://mnnai.ru'
+
 class ServerError(Exception):
     def send_data(self, data):
         raise ServerError("")
