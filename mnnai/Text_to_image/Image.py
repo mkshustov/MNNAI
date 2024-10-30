@@ -19,10 +19,6 @@ def Image(data):
     # Executing a POST request
     response = requests.post(f"{url}/v1/images/generations", headers=headers, json=payload, timeout=timeout)
 
-    # Check for errors
-    if response.status_code == 404:
-        raise ServerError('The server did not respond')
-
     return response.json()
 
 
