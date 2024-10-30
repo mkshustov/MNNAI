@@ -1,8 +1,8 @@
-from mnnai.Text_to_image import Image
 from mnnai.Text_to_text import AsyncText, Text
-from mnnai import ServerError
+from mnnai.Text_to_image import Image
 from datetime import datetime
-
+from mnnai import ServerError
+import asyncio
 
 def valid(messages):
     if not isinstance(messages, list):
@@ -67,8 +67,7 @@ class MNN:
                 return image
         raise ServerError('Sorry, none of the providers responded, please use a different model')
 
-    async def async_chat_create(self, model: str = '', messages: list = [], stream: bool = True,
-                                temperature: float = 0.5):
+    async def async_chat_create(self, model: str = '', messages: list = [], stream: bool = True, temperature: float = 0.5):
         start_time = datetime.now()
 
         if not messages:
@@ -114,6 +113,7 @@ class MNN:
             if last_chunk and 'Error' not in last_chunk:
                 return
 
+        await asyncio.sleep(0.5)
         raise ServerError('Sorry, none of the providers responded, please use a different model')
 
     def chat_create(self, model: str = '', messages: list = [], stream: bool = True, temperature: float = 0.5):
@@ -153,7 +153,11 @@ class MNN:
                 time = end_time - start_time
                 text['data'][0]['time']['total time'] = str(time)
                 return text
+
+        import time
+        time.sleep(0.5)
         raise ServerError('Sorry, none of the providers responded, please use a different model')
+
 
 
 
