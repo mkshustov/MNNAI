@@ -1,23 +1,24 @@
 # MNNAI
 
-This repository contains an example of how to use the MNNLib library to interact with the MNN API for image generation and text chat functionalities.
+This repository contains an example of how to use the mnnai library.
 
 ## Prerequisites
 
 - Python 3.x
-- MNNLib library installed. You can install it using pip:
+- MNNAI library installed. You can install it using pip:
 
 ```bash
-pip install mnnlibr
+pip install mnnai
 ```
 
 ## Usage
-**Image generation**
-
-The following code demonstrates how to generate an image based on a prompt using the MNN API.
+**Image Generation**
 
 ```python
 from mnnai import MNN
+import base64
+import os
+
 
 client = MNN(
     key='MNN API KEY',
@@ -28,15 +29,21 @@ client = MNN(
 
 response = client.Image_create(
     prompt="Draw a cute red panda",
-    model='sdxl'
+    model='dall-e-3'
 )
 
-image_url = response['data'][0]['url']
-print(image_url)
-```
+image_base64 = response['data'][0]['urls']
 
-## Text Chat
-The following code demonstrates how to create a chat session with the MNN API, both with streaming and without streaming.
+os.makedirs('images', exist_ok=True)
+
+for i, image_base64 in enumerate(image_base64):
+    image_data = base64.b64decode(image_base64)
+
+    with open(f'images/image_{i}.png', 'wb') as f:
+        f.write(image_data)
+
+print("Images have been successfully downloaded!")
+```
 
 **Streaming Chat**
 ```python
@@ -73,6 +80,47 @@ chat_completion = client.chat_create(
 print(chat_completion)
 ```
 
+### Models
+
+Currently MNN supports:
+
+```1c
+**Text**:
+
+*GPT 4o* : gpt-4o
+
+*GPT 4o Mini* : gpt-4o-mini
+
+*GPT 4 Turbo* : gpt-4-turbo
+
+*GPT 3.5 Turbo* : gpt-3.5-turbo
+
+*GPT 3.5 Turbo (16k)* : gpt-3.5-turbo-16k
+
+
+*Llama 3.1 (70b)* : llama-3.1-70b
+
+
+*Claude 3 (haiku)* : claude-3-haiku
+
+**Image**:
+
+*Stable diffusion (3)* : sd-3
+
+*Flux (schnell)* : flux-schnell
+
+*Dall-e (3)* : dall-e-3
+
+**Are being tested**:
+
+gemma-2b-it
+
+
+Mixtral-8x7B-Instruct-v0.1
+```
+
+
+
 ### Configuration
 Replace the key and id parameters in the MNN client initialization with your own API key and user ID.
 Adjust the prompt, model, and other parameters as needed for your specific use case.
@@ -80,7 +128,5 @@ Adjust the prompt, model, and other parameters as needed for your specific use c
 ### License
 This project is licensed under the MIT License. See the LICENSE file for details.
 
-### Links 
+### Discord 
 https://discord.gg/Ku2haNjFvj
-
-https://pypi.org/project/mnnai/
