@@ -115,7 +115,6 @@ Currently MNN supports:
 
 gemma-2b-it
 
-
 Mixtral-8x7B-Instruct-v0.1
 ```
 
