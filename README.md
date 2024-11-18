@@ -12,6 +12,7 @@ pip install mnnai
 ```
 
 ## Usage
+
 **Image Generation**
 
 ```python
@@ -45,12 +46,28 @@ for i, image_base64 in enumerate(image_base64):
 print("Images have been successfully downloaded!")
 ```
 
-**Streaming Chat**
+**Non-Streaming Chat**
+
+```python
+chat_completion = client.chat_create(
+    messages=[
+        {
+            "role": "user",
+            "content": "Hi",
+        }
+    ],
+    model="gpt-4o-mini",
+)
+print(chat_completion)
+```
+
+**Streaming Chat (Beta)**
+
 ```python
 import asyncio
 
 stream = client.async_chat_create(
-    model="gpt-4o",
+    model="gpt-4o-mini",
     messages=[{"role": "user", "content": "Hi"}],
     stream=True,
     temperature=0.5
@@ -66,19 +83,6 @@ async def generate():
 asyncio.run(generate())
 ```
 
-**Non-Streaming Chat**
-```python
-chat_completion = client.chat_create(
-    messages=[
-        {
-            "role": "user",
-            "content": "Hi",
-        }
-    ],
-    model="gpt-4o",
-)
-print(chat_completion)
-```
 
 ### Models
 
@@ -91,17 +95,19 @@ Currently MNN supports:
 
 *GPT 4o Mini* : gpt-4o-mini
 
-*GPT 4 Turbo* : gpt-4-turbo
+*GPT 4* : gpt-4
 
 *GPT 3.5 Turbo* : gpt-3.5-turbo
 
 *GPT 3.5 Turbo (16k)* : gpt-3.5-turbo-16k
 
-
 *Llama 3.1 (70b)* : llama-3.1-70b
 
+*Claude 3 (sonnet)* : claude-3-5-sonnet
 
 *Claude 3 (haiku)* : claude-3-haiku
+
+*Gemini flash* : gemini-flash
 
 **Image**:
 
