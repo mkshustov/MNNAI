@@ -95,8 +95,6 @@ Currently MNN supports:
 
 *GPT 4o Mini* : gpt-4o-mini
 
-*GPT 4* : gpt-4
-
 *GPT 3.5 Turbo* : gpt-3.5-turbo
 
 *GPT 3.5 Turbo (16k)* : gpt-3.5-turbo-16k
