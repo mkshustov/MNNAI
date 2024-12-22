@@ -61,29 +61,6 @@ chat_completion = client.chat_create(
 print(chat_completion)
 ```
 
-**Streaming Chat (Beta)**
-
-```python
-import asyncio
-
-stream = client.async_chat_create(
-    model="gpt-4o-mini",
-    messages=[{"role": "user", "content": "Hi"}],
-    stream=True,
-    temperature=0.5
-)
-
-async def generate():
-    async for chunk in stream:
-        if 'result' in chunk:
-            print(chunk['result'], end='')
-        else:
-            print(f"\n{chunk}")
-
-asyncio.run(generate())
-```
-
-
 ### Models
 
 Currently MNN supports:
