@@ -13,13 +13,10 @@ pip install mnnai
 
 ## Usage
 
-**Image Generation**
+**Non-Streaming Chat**
 
 ```python
 from mnnai import MNN
-import base64
-import os
-
 
 client = MNN(
     key='MNN API KEY',
@@ -27,6 +24,25 @@ client = MNN(
     # max_retries=2, 
     # timeout=60
 )
+
+chat_completion = client.chat_create(
+    messages=[
+        {
+            "role": "user",
+            "content": "Hi",
+        }
+    ],
+    model="gpt-4o-mini",
+)
+print(chat_completion)
+```
+
+
+**Image Generation**
+
+```python
+import base64
+import os
 
 response = client.Image_create(
     prompt="Draw a cute red panda",
@@ -46,60 +62,12 @@ for i, image_base64 in enumerate(image_base64):
 print("Images have been successfully downloaded!")
 ```
 
-**Non-Streaming Chat**
-
-```python
-chat_completion = client.chat_create(
-    messages=[
-        {
-            "role": "user",
-            "content": "Hi",
-        }
-    ],
-    model="gpt-4o-mini",
-)
-print(chat_completion)
-```
 
 ### Models
 
-Currently MNN supports:
-
-```1c
-**Text**:
-
-*GPT 4o* : gpt-4o
-
-*GPT 4o Mini* : gpt-4o-mini
-
-*GPT 3.5 Turbo* : gpt-3.5-turbo
-
-*GPT 3.5 Turbo (16k)* : gpt-3.5-turbo-16k
-
-*Llama 3.1 (70b)* : llama-3.1-70b
-
-*Claude 3 (sonnet)* : claude-3-5-sonnet
-
-*Claude 3 (haiku)* : claude-3-haiku
-
-*Gemini flash* : gemini-flash
-
-**Image**:
-
-*Stable diffusion (3)* : sd-3
-
-*Flux (schnell)* : flux-schnell
-
-*Dall-e (3)* : dall-e-3
-
-**Are being tested**:
-
-gemma-2b-it
-
-Mixtral-8x7B-Instruct-v0.1
+```python 
+print(client.GetModels())
 ```
-
-
 
 ### Configuration
 Replace the key and id parameters in the MNN client initialization with your own API key and user ID.
