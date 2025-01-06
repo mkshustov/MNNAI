@@ -25,7 +25,7 @@ def get_pypi_version():
     try:
         response = requests.get(f"https://pypi.org/pypi/mnnai/json").json()
         if response["info"]["version"] > version:
-            print(f"New mnnai version: {response["info"]["version"]} (current: {version}) | pip install -U mnnai")
+            print(f"New mnnai version: {response['info']['version']} (current: {version}) | pip install -U mnnai")
     except requests.RequestException as e:
         raise VersionNotFoundError(f"Failed to get PyPI version: {e}")
 
