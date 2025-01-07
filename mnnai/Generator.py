@@ -67,23 +67,17 @@ class MNN:
                 return image
         raise ServerError('Sorry, none of the providers responded, please use a different model')
 
-    def chat_create(self, model: str = '', messages: list = [], stream: bool = True, temperature: float = 0.5):
-        start_time = datetime.now()
+    def chat_create(self, model: str = '', messages: list = []):
         if not messages:
             raise ValueError("The 'prompt' parameter must be filled in.")
         if not valid(messages):
             raise ValueError("Incorrect messages")
-        if not 0.1 < temperature < 1:
-            raise ValueError("Incorrect temperature")
         if not model:
             raise ValueError("The 'model' parameter must be filled in.")
-        if not stream:
-            raise ValueError("This function only support stream=True, for stream=False use chat_create")
 
         data = {
             'messages': messages,
             'model': model,
-            'temperature': temperature,
             'id': self.id,
             'key': self.key,
             'max_retries': self.max_retries,
@@ -100,9 +94,6 @@ class MNN:
                     raise ServerError(text['Error'])
                 attempts += 1
             else:
-                end_time = datetime.now()
-                time = end_time - start_time
-                text['data'][0]['time']['total time'] = str(time)
                 return text
 
         import time
