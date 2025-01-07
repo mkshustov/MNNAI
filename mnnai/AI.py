@@ -29,18 +29,14 @@ def Text(data):
     try:
         headers = {
             "Content-Type": "application/json",
-            "Authorization": data["key"],
-            "Platform": "pc",
-            "Id": data["id"]
+            "Authorization": data["key"]
         }
         payload = {
             "model": data["model"],
-            "messages": data["messages"],
-            "temperature": data["temperature"],
-            "stream": False
+            "messages": data["messages"]
         }
 
-        response = requests.post(f"{url}/v1/chat/completion", headers=headers, json=payload)
+        response = requests.post(f"{url}/v1/chat/completions", headers=headers, json=payload)
         return response.json()
 
     except:
