@@ -3,7 +3,7 @@ import json
 
 
 url = "https://api.mnnai.ru"
-version = "4.5.1"
+version = "4.5.2"
 
 
 class ServerError(Exception):
