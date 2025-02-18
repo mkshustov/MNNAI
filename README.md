@@ -29,7 +29,8 @@ chat_completion = client.chat.create(
             "content": "Say this is a test",
         }
     ],
-    model="gpt-4o-mini"
+    model="gpt-4o-mini",
+    web_search=True # Internet search
 )
 print(chat_completion.choices[0].message.content)
 ```
