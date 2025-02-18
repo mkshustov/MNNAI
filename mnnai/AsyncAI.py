@@ -34,7 +34,8 @@ async def Text(data):
         payload = {
             "model": data["model"],
             "messages": data["messages"],
-            "stream": False
+            "stream": False,
+            "web_search": data["web_search"]
         }
 
         if data["debug"]:
@@ -55,7 +56,8 @@ async def StreamText(data):
         payload = {
             "model": data["model"],
             "messages": data["messages"],
-            "stream": True
+            "stream": True,
+            "web_search": data["web_search"]
         }
 
         if data["debug"]:
@@ -66,11 +68,14 @@ async def StreamText(data):
                 async for chunk in response.content.iter_chunks():
                     lines = chunk[0].decode("utf-8").split('\n\n')
                     for line in lines:
-                        line = line.replace("data:", "").strip()
-                        if line and line != '[DONE]':
-                            line = json.loads(line)
-                            if "delta" in line["choices"][0]:
-                                yield change(line)
+                        try:
+                            line = line.replace("data:", "").strip()
+                            if line and line != '[DONE]':
+                                line = json.loads(line)
+                                if "delta" in line["choices"][0]:
+                                    yield change(line)
+                        except:
+                            pass
 
-    except Exception:
+    except Exception as e:
         raise ServerError("Unexpected error :(")
