@@ -129,7 +129,7 @@ class Chat:
         self.timeout = timeout
         self.debug = debug
 
-    def create(self, messages: list, model: str = '', stream: bool = False):
+    def create(self, messages: list, model: str = '', stream: bool = False, web_search: bool = False):
         if self.debug:
             print("Analyzing information entered by the user")
 
@@ -142,7 +142,8 @@ class Chat:
             'max_retries': self.max_retries,
             'timeout': self.timeout,
             'stream': stream,
-            'debug': self.debug
+            'debug': self.debug,
+            'web_search': web_search
         }
 
         attempts = 0
@@ -162,7 +163,7 @@ class Chat:
 
         raise ServerError('Sorry, none of the providers responded, please use a different model')
 
-    async def async_create(self, messages: list, model: str = '', stream: bool = False):
+    async def async_create(self, messages: list, model: str = '', stream: bool = False, web_search: bool = False):
         if self.debug:
             print("Analyzing information entered by the user")
 
@@ -175,7 +176,8 @@ class Chat:
             'max_retries': self.max_retries,
             'timeout': self.timeout,
             'stream': stream,
-            'debug': self.debug
+            'debug': self.debug,
+            'web_search': web_search
         }
 
         attempts = 0
