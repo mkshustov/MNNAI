@@ -33,7 +33,8 @@ def Text(data):
         payload = {
             "model": data["model"],
             "messages": data["messages"],
-            "stream": data["stream"]
+            "stream": data["stream"],
+            "web_search": data["web_search"]
         }
 
         if data["debug"]:
