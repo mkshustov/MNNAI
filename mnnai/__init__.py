@@ -4,7 +4,7 @@ import json
 
 
 url = "https://api.mnnai.ru"
-version = "5.0.0"
+version = "5.1.0"
 
 class ServerError(Exception):
     def send_data(self, data):
