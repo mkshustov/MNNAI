@@ -12,7 +12,9 @@ def Image(data):
         }
         payload = {
             "prompt": data["prompt"],
-            "model": data["model"]
+            "model": data["model"],
+            "n": data["n"],
+            "enhance": data["enhance"]
         }
 
         if data["debug"]:
@@ -34,14 +36,13 @@ def Text(data):
             "model": data["model"],
             "messages": data["messages"],
             "stream": data["stream"],
-            "web_search": data["web_search"]
+            "web_search": data["web_search"],
         }
 
         if data["debug"]:
             print(f"Sending a request to {url}/v1/chat/completions")
 
         response = requests.post(f"{url}/v1/chat/completions", headers=headers, json=payload)
-
         res = []
         if data["stream"]:
             for token in response.text.split('\n'):
@@ -57,3 +58,4 @@ def Text(data):
             return change(response.json())
     except:
         raise ServerError("Unexpected error :(")
+
