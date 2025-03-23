@@ -26,7 +26,7 @@ chat_completion = client.chat.create(
     messages=[
         {
             "role": "user",
-            "content": "Say this is a test",
+            "content": "What's the weather like in New York?",
         }
     ],
     model="gpt-4o-mini",
@@ -128,7 +128,9 @@ import os
 async def main():
     response = await client.images.async_create(
         prompt="Draw a cute red panda",
-        model='dall-e-3'
+        model='dall-e-3',
+        n=4,
+        enhance=True
     )
 
     image_base64 = response.data[0].url
@@ -145,6 +147,72 @@ async def main():
 
 
 asyncio.run(main())
+```
+
+**Vision**
+
+With an image URL:
+
+```python
+prompt = "What is in this image?"
+img_url = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Red_Panda_%2825193861686%29.jpg/1600px-Red_Panda_%2825193861686%29.jpg"
+
+response = client.chat.create(
+    model="gpt-4o",
+    messages=[
+        {
+            "role": "user",
+            "content": [
+                {
+                    "type": "text",
+                    "text": prompt
+                },
+                {
+                    "type": "image_url",
+                    "image_url": {
+                        "url": img_url
+                    }
+                },
+            ]
+        }
+    ],
+)
+```
+
+With the image as a base64 encoded string:
+
+```python
+import base64
+
+image_path = "image.png"
+
+def encode_image(image_path):
+    with open(image_path, "rb") as image_file:
+        return base64.b64encode(image_file.read()).decode('utf-8')
+
+base64_image = encode_image(image_path)
+prompt = "What is in this image?"
+
+response = client.chat.create(
+    model="gpt-4o",
+    messages=[
+        {
+            "role": "user",
+            "content": [
+                {
+                    "type": "text",
+                    "text": prompt
+                },
+                {
+                    "type": "image_url",
+                    "image_url": {
+                        "url": f"data:image/jpeg;base64,{base64_image}"
+                    }
+                },
+            ]
+        }
+    ],
+)
 ```
 
 ## Auxiliary functions 
