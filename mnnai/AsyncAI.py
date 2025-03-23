@@ -13,7 +13,9 @@ async def Image(data):
         }
         payload = {
             "prompt": data["prompt"],
-            "model": data["model"]
+            "model": data["model"],
+            "n": data["n"],
+            "enhance": data["enhance"]
         }
 
         if data["debug"]:
@@ -22,8 +24,8 @@ async def Image(data):
         async with aiohttp.ClientSession() as session:
             async with session.post(f"{url}/v1/images/generations", headers=headers, json=payload, timeout=timeout) as response:
                 return change(await response.json())
-    except Exception:
-        raise ServerError("Unexpected error :(")
+    except Exception as e:
+        raise ServerError(f"Unexpected error: {e} :(")
 
 
 async def Text(data):
@@ -44,8 +46,9 @@ async def Text(data):
         async with aiohttp.ClientSession() as session:
             async with session.post(f"{url}/v1/chat/completions", headers=headers, json=payload) as response:
                 return change(json.loads(await response.text()))
-    except Exception:
-        raise ServerError("Unexpected error :(")
+
+    except Exception as e:
+        raise ServerError(f"Unexpected error: {e} :(")
 
 
 async def StreamText(data):
