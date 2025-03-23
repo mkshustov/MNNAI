@@ -1,7 +1,5 @@
 from mnnai import ServerError, GetModels
 from mnnai import SyncAI, AsyncAI
-from datetime import datetime
-
 
 def valid(messages):
     if not isinstance(messages, list):
@@ -17,10 +15,33 @@ def valid(messages):
         if not isinstance(message["role"], str) or message["role"] not in ["user", "assistant", "system"]:
             return False
 
-        if not isinstance(message["content"], str):
-            return False
+        content = message["content"]
+
+        if isinstance(content, str):
+            continue
+
+        if isinstance(content, list):
+            for item in content:
+                if not isinstance(item, dict):
+                    return False
+                if "type" not in item or not isinstance(item["type"], str):
+                    return False
+                if item["type"] == "text":
+                    if "text" not in item or not isinstance(item["text"], str):
+                        return False
+                elif item["type"] == "image_url":
+                    if "image_url" not in item or not isinstance(item["image_url"], dict):
+                        return False
+                    if "url" not in item["image_url"] or not isinstance(item["image_url"]["url"], str):
+                        return False
+                else:
+                    return False
+            continue
+
+        return False
 
     return True
+
 
 
 def check_input(messages, model):
@@ -51,8 +72,7 @@ class Images:
         self.timeout = timeout
         self.debug = debug
 
-    def create(self, prompt: '', model: ''):
-        start_time = datetime.now()
+    def create(self, prompt: '', model: '', n = 1, enhance = False):
         if self.debug:
             print("Analyzing information entered by the user")
 
@@ -65,6 +85,8 @@ class Images:
             'prompt': prompt,
             'model': model,
             'key': self.key,
+            'n': n,
+            'enhance': enhance,
             'max_retries': self.max_retries,
             'timeout': self.timeout,
             'debug': self.debug
@@ -80,14 +102,10 @@ class Images:
                     raise ServerError(image.Error)
                 attempts += 1
             else:
-                end_time = datetime.now()
-                time = end_time - start_time
-                setattr(image.data[0].time, "total time", str(time))
                 return image
         raise ServerError('Sorry, none of the providers responded, please use a different model')
 
-    async def async_create(self, prompt: '', model: ''):
-        start_time = datetime.now()
+    async def async_create(self, prompt: '', model: '', n = 1, enhance = False):
         if self.debug:
             print("Analyzing information entered by the user")
 
@@ -100,6 +118,8 @@ class Images:
             'prompt': prompt,
             'model': model,
             'key': self.key,
+            'n': n,
+            'enhance': enhance,
             'max_retries': self.max_retries,
             'timeout': self.timeout,
             'debug': self.debug
@@ -115,9 +135,6 @@ class Images:
                     raise ServerError(image.Error)
                 attempts += 1
             else:
-                end_time = datetime.now()
-                time = end_time - start_time
-                setattr(image.data[0].time, "total time", str(time))
                 return image
         raise ServerError('Sorry, none of the providers responded, please use a different model')
 
