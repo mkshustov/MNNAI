@@ -26,14 +26,25 @@ def valid(messages):
                     return False
                 if "type" not in item or not isinstance(item["type"], str):
                     return False
+
                 if item["type"] == "text":
                     if "text" not in item or not isinstance(item["text"], str):
                         return False
+
                 elif item["type"] == "image_url":
                     if "image_url" not in item or not isinstance(item["image_url"], dict):
                         return False
                     if "url" not in item["image_url"] or not isinstance(item["image_url"]["url"], str):
                         return False
+
+                elif item["type"] == "input_audio":
+                    if "input_audio" not in item or not isinstance(item["input_audio"], dict):
+                        return False
+                    if "data" not in item["input_audio"] or not isinstance(item["input_audio"]["data"], str):
+                        return False
+                    if "format" not in item["input_audio"] or not isinstance(item["input_audio"]["format"], str):
+                        return False
+
                 else:
                     return False
             continue
