@@ -54,7 +54,6 @@ def valid(messages):
     return True
 
 
-
 def check_input(messages, model):
     if not messages:
         raise ValueError("The 'prompt' parameter must be filled in.")
@@ -83,7 +82,7 @@ class Images:
         self.timeout = timeout
         self.debug = debug
 
-    def create(self, prompt: '', model: '', n = 1, enhance = False):
+    def create(self, prompt: '', model: '', n = 1, enhance = False, response_format = "b64_json"):
         if self.debug:
             print("Analyzing information entered by the user")
 
@@ -100,7 +99,8 @@ class Images:
             'enhance': enhance,
             'max_retries': self.max_retries,
             'timeout': self.timeout,
-            'debug': self.debug
+            'debug': self.debug,
+            'response_format': response_format
         }
         attempts = 0
         while attempts < self.max_retries + 1:
@@ -116,7 +116,7 @@ class Images:
                 return image
         raise ServerError('Sorry, none of the providers responded, please use a different model')
 
-    async def async_create(self, prompt: '', model: '', n = 1, enhance = False):
+    async def async_create(self, prompt: '', model: '', n = 1, enhance = False, response_format = "b64_json"):
         if self.debug:
             print("Analyzing information entered by the user")
 
@@ -133,7 +133,8 @@ class Images:
             'enhance': enhance,
             'max_retries': self.max_retries,
             'timeout': self.timeout,
-            'debug': self.debug
+            'debug': self.debug,
+            'response_format': response_format
         }
         attempts = 0
         while attempts < self.max_retries + 1:

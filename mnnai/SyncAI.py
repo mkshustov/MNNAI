@@ -14,7 +14,8 @@ def Image(data):
             "prompt": data["prompt"],
             "model": data["model"],
             "n": data["n"],
-            "enhance": data["enhance"]
+            "enhance": data["enhance"],
+            "response_format": data["response_format"]
         }
 
         if data["debug"]:
@@ -58,4 +59,3 @@ def Text(data):
             return change(response.json())
     except:
         raise ServerError("Unexpected error :(")
-

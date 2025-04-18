@@ -15,7 +15,8 @@ async def Image(data):
             "prompt": data["prompt"],
             "model": data["model"],
             "n": data["n"],
-            "enhance": data["enhance"]
+            "enhance": data["enhance"],
+            "response_format": data["response_format"]
         }
 
         if data["debug"]:
@@ -80,5 +81,5 @@ async def StreamText(data):
                         except:
                             pass
 
-    except Exception as e:
+    except Exception:
         raise ServerError("Unexpected error :(")

@@ -55,6 +55,7 @@ for chunk in stream:
 
 **Image Generation**
 
+Base64 response:
 ```python
 import base64
 import os
@@ -64,17 +65,28 @@ response = client.images.create(
     model='dall-e-3'
 )
 
-image_base64 = response.data[0].url
+image_base64 = response.data
 
 os.makedirs('images', exist_ok=True)
 
 for i, image_base64 in enumerate(image_base64):
-    image_data = base64.b64decode(image_base64)
+    image_data = base64.b64decode(image_base64.b64_json)
 
     with open(f'images/image_{i}.png', 'wb') as f:
         f.write(image_data)
 
 print("Images have been successfully downloaded!")
+```
+
+Url:
+```python
+response = client.images.create(
+    prompt="Draw a cute red panda",
+    model='dall-e-3',
+    n=4,
+    enhance=True,
+    response_format='url'
+)
 ```
 
 ## Async usage
@@ -120,6 +132,7 @@ asyncio.run(main())
 
 **Image Generation**
 
+Base64 response:
 ```python
 import asyncio
 import base64
@@ -133,18 +146,37 @@ async def main():
         enhance=True
     )
 
-    image_base64 = response.data[0].url
+    image_base64 = response.data
 
     os.makedirs('images', exist_ok=True)
 
     for i, image_base64 in enumerate(image_base64):
-        image_data = base64.b64decode(image_base64)
+        image_data = base64.b64decode(image_base64.b64_json)
 
         with open(f'images/image_{i}.png', 'wb') as f:
             f.write(image_data)
 
     print("Images have been successfully downloaded!")
 
+
+asyncio.run(main())
+```
+
+Url:
+```python
+import asyncio
+
+async def main():
+    response = await client.images.async_create(
+        prompt="Draw a cute red panda",
+        model='dall-e-3',
+        n=4,
+        enhance=True,
+        response_format='url'
+    )
+
+    for url in response.data:
+        print(url.url)
 
 asyncio.run(main())
 ```
@@ -241,4 +273,3 @@ This project is licensed under the MIT License. See the LICENSE file for details
 
 ## Discord 
 https://discord.gg/Ku2haNjFvj
-

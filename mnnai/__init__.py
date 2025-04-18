@@ -2,9 +2,8 @@ from types import SimpleNamespace
 import requests
 import json
 
-
 url = "https://api.mnnai.ru"
-version = "5.3.0"
+version = "5.4.0"
 
 class ServerError(Exception):
     def send_data(self, data):
